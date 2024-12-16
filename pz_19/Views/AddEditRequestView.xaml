@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="pz_19.Views.AddEditRequestView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pz_19.Views"
+        mc:Ignorable="d"
+        Height="450" Width="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" Margin="5">
+            <TextBlock Text="Номер заявки:"/>
+            <TextBox Text="{Binding RequestNumber, ValidatesOnNotifyDataErrors=True}" Margin="0,5"/>
+
+            <TextBlock Text="Дата добавления:"/>
+            <DatePicker SelectedDate="{Binding DateAdded}" Margin="0,5"/>
+
+            <TextBlock Text="Тип бытовой техники:"/>
+            <TextBox Text="{Binding ApplianceType, ValidatesOnNotifyDataErrors=True}" Margin="0,5"/>
+
+            <TextBlock Text="Модель:"/>
+            <TextBox Text="{Binding ApplianceModel, ValidatesOnNotifyDataErrors=True}" Margin="0,5"/>
+
+            <TextBlock Text="Описание проблемы:"/>
+            <TextBox Text="{Binding ProblemDescription, ValidatesOnNotifyDataErrors=True}" Margin="0,5"/>
+
+            <TextBlock Text="ФИО клиента:"/>
+            <TextBox Text="{Binding ClientFullName, ValidatesOnNotifyDataErrors=True}" Margin="0,5"/>
+
+            <TextBlock Text="Номер телефона клиента:"/>
+            <TextBox Text="{Binding ClientPhoneNumber, ValidatesOnNotifyDataErrors=True}" Margin="0,5"/>
+
+            <TextBlock Text="Статус заявки:"/>
+            <ComboBox ItemsSource="{Binding Statuses}" 
+                      SelectedItem="{Binding SelectedStatus}" 
+                      DisplayMemberPath="Name" 
+                      Margin="0,5"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Отмена" Command="{Binding CancelCommand}" Margin="5"/>
+            <Button Content="Сохранить" Command="{Binding SaveCommand}" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
